@@ -288,12 +288,10 @@ const handleSeedQueryParam = () => {
     generateSymbol();
 };
 
-handleSeedQueryParam();
-
-
 
 generateNoElements();
 changeLogo();
+handleSeedQueryParam();
 logoElement.addEventListener('click', randomizeSeed);
 resetBtn.addEventListener('click', resetSymbol);
 logoPicker.addEventListener('change', changeLogo);
