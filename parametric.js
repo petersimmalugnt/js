@@ -254,13 +254,13 @@ const generateNoElements = () => {
     updateNoPosition();
 }
 
-const changeLogo = () => {
+const changeLogo = (hasQuery) => {
     const logoGroup = document.querySelector('#logo--wordmark');
     const val = logoPicker.value;
     logoGroup.innerHTML = logos[val].wordmark;
     curLogo = val;
     logoElement.setAttribute('viewBox', `0 0 ${logos[val].width} 800`);
-    seed = logos[val].seed;
+    if (!hasQuery) seed = logos[val].seed;
     generateSymbol();
     toggleGrid();
 }
@@ -287,16 +287,17 @@ const updateUrlWithSeed = (seed) => {
 
 const handleSeedQueryParam = () => {
     let querySeed = getValidNumericQueryParam('seed');
-    if (!querySeed) return;    
+    if (!querySeed) return false;    
     querySeed = querySeed.padStart(8, '0').slice(0, 8);
     seed = querySeed;
-    return;
+    return true
 };
 
-generateNoElements();
-changeLogo();
-handleSeedQueryParam();
-generateSymbol();
+const init = () => {
+    generateNoElements();
+    changeLogo(handleSeedQueryParam);
+}
+
 logoElement.addEventListener('click', randomizeSeed);
 resetBtn.addEventListener('click', resetSymbol);
 logoPicker.addEventListener('change', changeLogo);
