@@ -282,12 +282,11 @@ const getValidNumericQueryParam = (paramName) => {
 const adjustToEightDigits = (numberString) => numberString.padStart(8, '0').slice(-8);
 
 const handleSeedQueryParam = () => {
-    const seed = getValidNumericQueryParam('seed');
-    if (!seed) return;    
-    seed = adjustToEightDigits(seed)
+    const querySeed = getValidNumericQueryParam('seed');
+    if (!querySeed) return;    
+    seed = adjustToEightDigits(querySeed)
     generateSymbol();
 };
-
 
 generateNoElements();
 changeLogo();
