@@ -288,7 +288,7 @@ const updateUrlWithSeed = () => {
 const handleSeedQueryParam = () => {
     let querySeed = getValidNumericQueryParam('seed');
     if (!querySeed) return;    
-    querySeed = querySeed.padStart(8, '0').slice(-8);
+    querySeed = querySeed.padStart(8, '0').slice(0, 8);
     seed = querySeed;
     generateSymbol();
 };
