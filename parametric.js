@@ -217,6 +217,7 @@ const updateNoPosition = () => {
 
 const updateNoContent = () => {
     document.title = shapeIndexes.join('');
+    updateUrlWithSeed();
     document.getElementById('rawSeed').innerText = shapeIndexes.join('');
     shapeIndexes.forEach((v, i) => {
         document.getElementById(`sNo${i}`).innerText = v;
@@ -279,12 +280,16 @@ const getValidNumericQueryParam = (paramName) => {
     return paramValue && /^\d+$/.test(paramValue) ? paramValue : null;
 };
 
-const adjustToEightDigits = (numberString) => numberString.padStart(8, '0').slice(-8);
+const updateUrlWithSeed = () => {
+  const newUrl = `${window.location.origin}${window.location.pathname}?seed=${seed}`;
+  history.pushState(null, '', newUrl);
+};
 
 const handleSeedQueryParam = () => {
-    const querySeed = getValidNumericQueryParam('seed');
+    let querySeed = getValidNumericQueryParam('seed');
     if (!querySeed) return;    
-    seed = adjustToEightDigits(querySeed)
+    querySeed = querySeed.padStart(8, '0').slice(-8);
+    seed = querySeed;
     generateSymbol();
 };
 
