@@ -2,11 +2,16 @@ const fps = 1000 / 60;
 const speed = fps * 4;
 const stackDelay = fps * 2;
 
-const logoElement = document.getElementById("logo");
-const resetBtn = document.getElementById("resetSymbol");
-const logoPicker = document.getElementById("logoPicker");
-const gridToggler = document.getElementById("gridToggler");
+const logoElement = document.getElementById('logo');
+const logoPicker = document.getElementById('logoPicker');
+const marking = document.getElementById('marking');
+const gridToggler = document.getElementById('gridToggler');
+const colorTheme = document.getElementById('colorTheme');
+const randomizeBtn = document.getElementById('randomizeSymbol');
+const resetBtn = document.getElementById('resetSymbol');
 const downloadSvgElement = document.getElementById('downloadSvg');
+const logoSymbol = document.getElementById('logo--symbol');
+const curSeedElement = document.getElementById('currentSeed');
 
 const logos = [
     {
@@ -113,6 +118,36 @@ const logos = [
             <path d="M1200 550H2162.5" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
         `,
         width: 2362.5,
+    },{
+        name: 'Parametric_Symbol',
+        seed: '23131151',
+        wordmark: '',
+        grid: `
+            <path d="M0 200H1200" stroke="black" stroke-miterlimit="10"/>
+            <path d="M0 400H1200" stroke="black" stroke-miterlimit="10"/>
+            <path d="M0 600H1200" stroke="black" stroke-miterlimit="10"/>
+            <path d="M200 0V800" stroke="black" stroke-miterlimit="10"/>
+            <path d="M600 0V800" stroke="black" stroke-miterlimit="10"/>
+            <path d="M800 0V800" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
+            <path d="M400 0V800" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
+            <path d="M1000 0V800" stroke="black" stroke-miterlimit="10"/>
+        `,
+        width: 1200
+    },{
+        name: 'Hektar_Symbol',
+        seed: '00131451',
+        wordmark: '',
+        grid: `
+            <path d="M0 200H1200" stroke="black" stroke-miterlimit="10"/>
+            <path d="M0 400H1200" stroke="black" stroke-miterlimit="10"/>
+            <path d="M0 600H1200" stroke="black" stroke-miterlimit="10"/>
+            <path d="M200 0V800" stroke="black" stroke-miterlimit="10"/>
+            <path d="M600 0V800" stroke="black" stroke-miterlimit="10"/>
+            <path d="M800 0V800" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
+            <path d="M400 0V800" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
+            <path d="M1000 0V800" stroke="black" stroke-miterlimit="10"/>
+        `,
+        width: 1200
     }
 ]
 
@@ -133,8 +168,41 @@ const shapes = [
 
 const regMark = {
     id: document.getElementById('regMark'),
-    d: 'M962.5 218.75C962.5 208.35 970.4 200 981.03 200C992.19 200 1000 208.26 1000 218.66C1000 229.06 992.27 237.5 981.21 237.5C970.15 237.5 962.5 229.24 962.5 218.75ZM981.21 233.23C989.73 233.23 995.44 227.1 995.44 218.66C995.44 210.22 989.65 204.35 981.04 204.35C972.96 204.35 967.08 210.39 967.08 218.75C967.08 227.11 972.96 233.23 981.22 233.23H981.21ZM974 209.06H982.69C986.64 209.06 988.92 211.28 988.92 214.04C988.92 216.62 986.99 217.95 985.06 218.04V219.55C987.26 219.55 988.84 221.24 988.84 223.37V228.26H984.54V224.44C984.54 222.75 983.49 221.86 981.55 221.86H978.3V228.26H974V209.06ZM981.56 218.13C983.49 218.13 984.46 216.71 984.46 215.38C984.46 213.96 983.5 212.71 981.56 212.71H978.31V218.13H981.56Z'
+    curMark: 0,
+    d: [
+        'M962.5 218.75C962.5 208.35 970.4 200 981.03 200C992.19 200 1000 208.26 1000 218.66C1000 229.06 992.27 237.5 981.21 237.5C970.15 237.5 962.5 229.24 962.5 218.75ZM981.21 233.23C989.73 233.23 995.44 227.1 995.44 218.66C995.44 210.22 989.65 204.35 981.04 204.35C972.96 204.35 967.08 210.39 967.08 218.75C967.08 227.11 972.96 233.23 981.22 233.23H981.21ZM974 209.06H982.69C986.64 209.06 988.92 211.28 988.92 214.04C988.92 216.62 986.99 217.95 985.06 218.04V219.55C987.26 219.55 988.84 221.24 988.84 223.37V228.26H984.54V224.44C984.54 222.75 983.49 221.86 981.55 221.86H978.3V228.26H974V209.06ZM981.56 218.13C983.49 218.13 984.46 216.71 984.46 215.38C984.46 213.96 983.5 212.71 981.56 212.71H978.31V218.13H981.56Z',
+        '',
+        '',
+    ]
 };
+
+const colorThemes = [
+    {
+        bg: '#ffffff',
+        logo: '#000000'
+    },{
+        bg: '#000000',
+        logo: '#ffffff'
+    },{
+        bg: '#66ba9b',
+        logo: '#ffffff'
+    },{
+        bg: '#ffffff',
+        logo: '#66ba9b'
+    },{
+        bg: '#000000',
+        logo: '#66ba9b'
+    },{
+        bg: '#f75320',
+        logo: '#ffffff'
+    },{
+        bg: '#ffffff',
+        logo: '#f75320'
+    },{
+        bg: '#000000',
+        logo: '#f75320'
+    }
+]
 
 const resetSymbol = () => {
     seed = logos[curLogo].seed;
@@ -181,7 +249,7 @@ const generateSymbol = () => {
         curShapeIndex[i] = (curShapeIndex[i] + 1) % shapes.length;
         const pathElement = document.getElementById(`m${i}`);
         pathElement.setAttribute('d', shapes[curShapeIndex[i]]);
-        if (i === 3) regMark.id.setAttribute('d', curShapeIndex[i] === 0 || curShapeIndex[i] === 3 ? regMark.d : '');
+        if (i === 3) regMark.id.setAttribute('d', curShapeIndex[i] === 0 || curShapeIndex[i] === 3 ? regMark.d[regMark.curMark] : '');
         
         const timeoutId = setTimeout(() => changePath(shapeIndex, i), speed);
         timeouts.push(timeoutId);
@@ -218,6 +286,7 @@ const updateNoPosition = () => {
 const updateNoContent = () => {
     document.title = shapeIndexes.join('');
     updateUrlWithSeed(shapeIndexes.join(''));
+    curSeedElement.value = shapeIndexes.join('');
     document.getElementById('rawSeed').innerText = shapeIndexes.join('');
     shapeIndexes.forEach((v, i) => {
         document.getElementById(`sNo${i}`).innerText = v;
@@ -234,7 +303,7 @@ const generateNoElements = () => {
     div.style.lineHeight = '1em';
     div.style.position = 'absolute';
     div.style.left = '0px';
-    div.style.top = 'calc(25% + .25em)';
+    div.style.top = 'calc(50% - 1.25em)';
     logoElement.parentElement.appendChild(div);
 
     shapeIndexes.forEach((value, index) => {
@@ -254,13 +323,33 @@ const generateNoElements = () => {
     updateNoPosition();
 }
 
+const changeMarking = () => {
+    regMark.curMark = marking.value
+    regMark.id.setAttribute('d', regMark.d[regMark.curMark])
+}
+
+const changeColors = () => {
+    const val = colorTheme.value;
+    const logoColor = colorThemes[val].logo;
+    const bgColor = colorThemes[val].bg;
+
+    document.querySelectorAll('svg [fill], svg [stroke]').forEach(el => {
+        if (el.hasAttribute('fill')) el.setAttribute('fill', logoColor);
+        if (el.hasAttribute('stroke')) el.setAttribute('stroke', logoColor);
+    });
+
+    document.documentElement.style.setProperty('--bg', bgColor);
+    document.documentElement.style.setProperty('--txt', logoColor);
+
+}
+
 const changeLogo = (hasQuery) => {
     const logoGroup = document.querySelector('#logo--wordmark');
     const val = logoPicker.value;
     logoGroup.innerHTML = logos[val].wordmark;
     curLogo = val;
     logoElement.setAttribute('viewBox', `0 0 ${logos[val].width} 800`);
-    if (!hasQuery) seed = logos[val].seed;
+    if (hasQuery) seed = logos[val].seed;
     generateSymbol();
     toggleGrid();
 }
@@ -273,6 +362,7 @@ const toggleGrid = () => {
         gridGroup.innerHTML = logos[curLogo].grid;
         logoElement.parentElement.classList.add('showGrid');
     }
+    changeColors();
 }
 
 const getValidNumericQueryParam = (paramName) => {
@@ -287,23 +377,35 @@ const updateUrlWithSeed = (seed) => {
 
 const handleSeedQueryParam = () => {
     let querySeed = getValidNumericQueryParam('seed');
-    if (!querySeed) return false;    
+    if (!querySeed) return true;    
     querySeed = querySeed.padStart(8, '0').slice(0, 8);
     seed = querySeed;
-    return true
+    console.log(seed)
+    return false
 };
+
+const changeSeed = () => {
+    const val = curSeedElement.value.padStart(8, '0').slice(0, 8).toString();
+    seed = val;
+    generateSymbol();
+}
 
 const init = () => {
     generateNoElements();
-    changeLogo(handleSeedQueryParam);
-    logoElement.addEventListener('click', randomizeSeed);
+    changeLogo(handleSeedQueryParam());
+    curSeedElement.addEventListener('input', () => curSeedElement.value = curSeedElement.value.replace(/[^0-9]/g, '').slice(-8));
+    curSeedElement.addEventListener('change', changeSeed);
+    randomizeBtn.addEventListener('click', randomizeSeed);
     resetBtn.addEventListener('click', resetSymbol);
     logoPicker.addEventListener('change', changeLogo);
     gridToggler.addEventListener('change', toggleGrid);
-    document.addEventListener('keydown', event => event.key === 'Enter' && randomizeSeed());
+    marking.addEventListener('change', changeMarking);
+    colorTheme.addEventListener('change', changeColors);
     downloadSvgElement.addEventListener('click', downloadSvg);
     const resizeObserver = new ResizeObserver(updateNoPosition);
     resizeObserver.observe(logoElement);
+    logoSymbol.addEventListener('mouseover', () => logoElement.parentElement.classList.add('showGrid'));
+    logoSymbol.addEventListener('mouseout', () => gridToggler.value == 0 ? logoElement.parentElement.classList.remove('showGrid') : '');
 }
 
 init();
