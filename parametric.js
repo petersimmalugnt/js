@@ -15,7 +15,7 @@ const curSeedElement = document.getElementById('currentSeed');
 
 const logos = [
     {
-        name: 'Parametric',
+        name: 'PARAMETRIC',
         seed: '23131151',
         wordmark: `
             <path d="M1200 350.88H1298.08C1348.41 350.88 1384.54 382.09 1384.54 430.89C1384.54 479.69 1347.65 510.62 1298.08 510.62H1239.58V600H1200V350.88ZM1295 474.11C1323.82 474.11 1344.19 458.94 1344.19 430.89C1344.19 402.84 1323.83 387 1295 387H1239.58V474.11H1295Z" fill="black"/>
@@ -46,7 +46,7 @@ const logos = [
         `,
         width: 3250,
     },{
-        name: 'Hektar',
+        name: 'HEKTAR',
         seed: '00131451',
         wordmark: `
                 <g id="logo--wordmark">
@@ -73,7 +73,7 @@ const logos = [
         `,
         width: 2475,
     },{
-        name: 'Hektar by Parametric',
+        name: 'HEKTAR_BY_PARAMETRIC',
         seed: '00131451',
         wordmark: `
             <path d="M1263.2 406.1H1216.06V450H1200V349.91H1216.06V390.97H1263.2V349.91H1279.26V450H1263.2V406.1Z" fill="black"/>
@@ -119,7 +119,7 @@ const logos = [
         `,
         width: 2362.5,
     },{
-        name: 'Parametric_Symbol',
+        name: 'PARAMETRIC_SYMBOL',
         seed: '23131151',
         wordmark: '',
         grid: `
@@ -134,7 +134,7 @@ const logos = [
         `,
         width: 1200
     },{
-        name: 'Hektar_Symbol',
+        name: 'HEKTAR_SYMBOL',
         seed: '00131451',
         wordmark: '',
         grid: `
@@ -178,27 +178,35 @@ const regMark = {
 
 const colorThemes = [
     {
+        name: 'BLACK',
         bg: '#ffffff',
         logo: '#000000'
     },{
+        name: 'WHITE',
         bg: '#000000',
         logo: '#ffffff'
     },{
+        name: 'WHITE',
         bg: '#66ba9b',
         logo: '#ffffff'
     },{
+        name: 'GREEN',
         bg: '#ffffff',
         logo: '#66ba9b'
     },{
+        name: 'GREEN',
         bg: '#000000',
         logo: '#66ba9b'
     },{
+        name: 'WHITE',
         bg: '#f75320',
         logo: '#ffffff'
     },{
+        name: 'ORANGE',
         bg: '#ffffff',
         logo: '#f75320'
     },{
+        name: 'ORANGE',
         bg: '#000000',
         logo: '#f75320'
     }
@@ -264,16 +272,24 @@ const generateSymbol = () => {
 }
 
 const downloadSvg = () => {
+    const viewBox = logoElement.getAttribute('viewBox').split(' ');
+    const width = viewBox[2];
+    const height = viewBox[3];
+
+    logoElement.removeAttribute('width');
+    
     const svgData = new XMLSerializer().serializeToString(logoElement);
     const blob = new Blob([svgData], {type: "image/svg+xml"});
     const url = URL.createObjectURL(blob);
     
     const downloadLink = document.createElement('a');
     downloadLink.href = url;
-    downloadLink.download = `${logos[curLogo].name}__${seed}__.svg`;
+    downloadLink.download = `${logos[curLogo].name}___${colorThemes[colorTheme.value].name}${gridToggler.value === '1' ? '___GRID' : ''}___${seed}___${marking.value === '0' ? 'R' : marking.value === '1' ? 'TM' : ''}.svg`;
     downloadLink.click();
     
     URL.revokeObjectURL(url);
+
+    logoElement.setAttribute('width', '100%');
 };
 
 const updateNoPosition = () => {
