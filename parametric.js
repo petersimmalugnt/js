@@ -260,7 +260,8 @@ const changeLogo = () => {
     logoGroup.innerHTML = logos[val].wordmark;
     curLogo = val;
     seed = logos[val].seed;
-    logoElement.setAttribute('viewBox', `0 0 ${logos[val].width} 800`)
+    logoElement.setAttribute('viewBox', `0 0 ${logos[val].width} 800`);
+    handleSeedQueryParam();
     generateSymbol();
     toggleGrid();
 }
@@ -290,12 +291,10 @@ const handleSeedQueryParam = () => {
     if (!querySeed) return;    
     querySeed = querySeed.padStart(8, '0').slice(0, 8);
     seed = querySeed;
-    generateSymbol();
 };
 
 generateNoElements();
 changeLogo();
-handleSeedQueryParam();
 logoElement.addEventListener('click', randomizeSeed);
 resetBtn.addEventListener('click', resetSymbol);
 logoPicker.addEventListener('change', changeLogo);
