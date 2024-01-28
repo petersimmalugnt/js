@@ -283,10 +283,9 @@ const adjustToEightDigits = (numberString) => numberString.padStart(8, '0').slic
 
 const handleSeedQueryParam = () => {
     const seed = getValidNumericQueryParam('seed');
-    if (!seed) return;
-    
-    const adjustedSeed = adjustToEightDigits(seed);
-    console.log("Anpassat seed-värde:", adjustedSeed);
+    if (!seed) return;    
+    seed = adjustToEightDigits(seed)
+    generateSymbol();
 };
 
 handleSeedQueryParam();
