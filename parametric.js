@@ -296,13 +296,14 @@ const handleSeedQueryParam = () => {
 const init = () => {
     generateNoElements();
     changeLogo(handleSeedQueryParam);
+    logoElement.addEventListener('click', randomizeSeed);
+    resetBtn.addEventListener('click', resetSymbol);
+    logoPicker.addEventListener('change', changeLogo);
+    gridToggler.addEventListener('change', toggleGrid);
+    document.addEventListener('keydown', event => event.key === 'Enter' && randomizeSeed());
+    downloadSvgElement.addEventListener('click', downloadSvg);
+    const resizeObserver = new ResizeObserver(updateNoPosition);
+    resizeObserver.observe(logoElement);
 }
 
-logoElement.addEventListener('click', randomizeSeed);
-resetBtn.addEventListener('click', resetSymbol);
-logoPicker.addEventListener('change', changeLogo);
-gridToggler.addEventListener('change', toggleGrid);
-document.addEventListener('keydown', event => event.key === 'Enter' && randomizeSeed());
-downloadSvgElement.addEventListener('click', downloadSvg);
-const resizeObserver = new ResizeObserver(updateNoPosition);
-resizeObserver.observe(logoElement);
+init();
