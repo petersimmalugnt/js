@@ -217,7 +217,7 @@ const updateNoPosition = () => {
 
 const updateNoContent = () => {
     document.title = shapeIndexes.join('');
-    updateUrlWithSeed();
+    updateUrlWithSeed(shapeIndexes.join(''));
     document.getElementById('rawSeed').innerText = shapeIndexes.join('');
     shapeIndexes.forEach((v, i) => {
         document.getElementById(`sNo${i}`).innerText = v;
@@ -281,7 +281,7 @@ const getValidNumericQueryParam = (paramName) => {
     return paramValue && /^\d+$/.test(paramValue) ? paramValue : null;
 };
 
-const updateUrlWithSeed = () => {
+const updateUrlWithSeed = (seed) => {
   const newUrl = `${window.location.origin}${window.location.pathname}?seed=${seed}`;
   history.pushState(null, '', newUrl);
 };
