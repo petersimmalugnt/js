@@ -274,6 +274,25 @@ const toggleGrid = () => {
     }
 }
 
+const getValidNumericQueryParam = (paramName) => {
+    const paramValue = new URLSearchParams(window.location.search).get(paramName);
+    return paramValue && /^\d+$/.test(paramValue) ? paramValue : null;
+};
+
+const adjustToEightDigits = (numberString) => numberString.padStart(8, '0').slice(-8);
+
+const handleSeedQueryParam = () => {
+    const seed = getValidNumericQueryParam('seed');
+    if (!seed) return;
+    
+    const adjustedSeed = adjustToEightDigits(seed);
+    console.log("Anpassat seed-värde:", adjustedSeed);
+};
+
+handleSeedQueryParam();
+
+
+
 generateNoElements();
 changeLogo();
 logoElement.addEventListener('click', randomizeSeed);
