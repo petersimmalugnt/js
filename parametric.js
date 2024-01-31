@@ -9,7 +9,7 @@ const gridToggler = document.getElementById('gridToggler');
 const colorTheme = document.getElementById('colorTheme');
 const randomizeBtn = document.getElementById('randomizeSymbol');
 const resetBtn = document.getElementById('resetSymbol');
-const downloadSvgElement = document.getElementById('downloadSvg');
+const downloadElement = document.getElementById('download');
 const logoSymbol = document.getElementById('logo--symbol');
 const curSeedElement = document.getElementById('currentSeed');
 
@@ -170,8 +170,8 @@ const regMark = {
     id: document.getElementById('regMark'),
     curMark: 0,
     d: [
-        'M962.5 218.75C962.5 208.35 970.4 200 981.03 200C992.19 200 1000 208.26 1000 218.66C1000 229.06 992.27 237.5 981.21 237.5C970.15 237.5 962.5 229.24 962.5 218.75ZM981.21 233.23C989.73 233.23 995.44 227.1 995.44 218.66C995.44 210.22 989.65 204.35 981.04 204.35C972.96 204.35 967.08 210.39 967.08 218.75C967.08 227.11 972.96 233.23 981.22 233.23H981.21ZM974 209.06H982.69C986.64 209.06 988.92 211.28 988.92 214.04C988.92 216.62 986.99 217.95 985.06 218.04V219.55C987.26 219.55 988.84 221.24 988.84 223.37V228.26H984.54V224.44C984.54 222.75 983.49 221.86 981.55 221.86H978.3V228.26H974V209.06ZM981.56 218.13C983.49 218.13 984.46 216.71 984.46 215.38C984.46 213.96 983.5 212.71 981.56 212.71H978.31V218.13H981.56Z',
         'M956.84 204.36H950V200H968.23V204.36H961.39V224.13H956.83V204.36H956.84ZM972.12 200H981.5L985.39 219.71H986.73L990.68 200H1000V224.13H995.51V204.36H994.17L990.15 224.13H981.97L977.95 204.36H976.61V224.13H972.12V200Z',
+        'M962.5 218.75C962.5 208.35 970.4 200 981.03 200C992.19 200 1000 208.26 1000 218.66C1000 229.06 992.27 237.5 981.21 237.5C970.15 237.5 962.5 229.24 962.5 218.75ZM981.21 233.23C989.73 233.23 995.44 227.1 995.44 218.66C995.44 210.22 989.65 204.35 981.04 204.35C972.96 204.35 967.08 210.39 967.08 218.75C967.08 227.11 972.96 233.23 981.22 233.23H981.21ZM974 209.06H982.69C986.64 209.06 988.92 211.28 988.92 214.04C988.92 216.62 986.99 217.95 985.06 218.04V219.55C987.26 219.55 988.84 221.24 988.84 223.37V228.26H984.54V224.44C984.54 222.75 983.49 221.86 981.55 221.86H978.3V228.26H974V209.06ZM981.56 218.13C983.49 218.13 984.46 216.71 984.46 215.38C984.46 213.96 983.5 212.71 981.56 212.71H978.31V218.13H981.56Z',
         '',
     ]
 };
@@ -271,25 +271,52 @@ const generateSymbol = () => {
     updateNoContent();
 }
 
-const downloadSvg = () => {
+function download(href, name) {
+    const a = document.createElement('a');
+
+    a.download = name;
+    a.href = href;
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
+const downloadFile = () => {
+    const imgType = downloadElement.value;
+    
+    if (imgType === '0') return;
+
+    logoElement.removeAttribute('width');
     const viewBox = logoElement.getAttribute('viewBox').split(' ');
     const width = viewBox[2];
     const height = viewBox[3];
-
-    logoElement.removeAttribute('width');
-    
+    const fileName = `${logos[curLogo].name}___${colorThemes[colorTheme.value].name}${gridToggler.value === '1' ? '___GRID' : ''}___${seed}___${marking.value === '0' ? 'R' : marking.value === '1' ? 'TM' : ''}`;
     const svgData = new XMLSerializer().serializeToString(logoElement);
-    const blob = new Blob([svgData], {type: "image/svg+xml"});
-    const url = URL.createObjectURL(blob);
     
-    const downloadLink = document.createElement('a');
-    downloadLink.href = url;
-    downloadLink.download = `${logos[curLogo].name}___${colorThemes[colorTheme.value].name}${gridToggler.value === '1' ? '___GRID' : ''}___${seed}___${marking.value === '0' ? 'R' : marking.value === '1' ? 'TM' : ''}.svg`;
-    downloadLink.click();
-    
-    URL.revokeObjectURL(url);
+    if (imgType === '1') {
+        const blob = new Blob([svgData], {type: "image/svg+xml"});
+        const url = URL.createObjectURL(blob);
+        download(URL.createObjectURL(new Blob([svgData], {type: "image/svg+xml"})), `${fileName}.svg`);
+        URL.revokeObjectURL(url);
+    };
 
+    if (imgType === '2') {
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        canvas.width = width;
+        canvas.height = height;
+        let image = new Image;
+        image.onload = function () {
+            context.fillStyle = context.createPattern(image, 'no-repeat'); 
+            context.fillRect(0, 0, canvas.width, canvas.height); 
+            this.download(canvas.toDataURL("image/png"), `${fileName}.png`);
+        }.bind(this);
+        image.src = 'data:image/svg+xml;base64,' + btoa(svgData);
+    }
+    
     logoElement.setAttribute('width', '100%');
+    downloadElement.value = 0;
 };
 
 const updateNoPosition = () => {
@@ -417,7 +444,7 @@ const init = () => {
     gridToggler.addEventListener('change', toggleGrid);
     marking.addEventListener('change', changeMarking);
     colorTheme.addEventListener('change', changeColors);
-    downloadSvgElement.addEventListener('click', downloadSvg);
+    downloadElement.addEventListener('change', downloadFile);
     const resizeObserver = new ResizeObserver(updateNoPosition);
     resizeObserver.observe(logoElement);
     logoSymbol.addEventListener('mouseover', () => logoElement.parentElement.classList.add('showGrid'));
