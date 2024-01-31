@@ -310,35 +310,11 @@ const randomizeSeed = () => {
     generateSymbol();
 }
 
-const updateNoInputs = (shapeArray) => {
-    for (let i = 0; i < shapeArray.length; i++) {
-        const inputField = document.getElementById(`no${i}`);
-        if (inputField) {
-            inputField.value = shapeArray[i];
-        }
-    }
-}
-
-const updateNoInput = (shapeNo, i) => {
-    const inputField = document.getElementById(`no${i}`);
-    if (inputField) {
-        inputField.value = shapeNo;
-    }
-}
-
-const updateAllNoInputs = (shapeNoArray) => {
-    for (let i = 0; i < curShapeIndex.length; i++) {
-        updateNoInput(shapeNoArray[i],i)
-    }
-}
-
 const generateSymbol = () => {
     timeouts.forEach(clearTimeout);
     timeouts = [];
 
     shapeIndexes = Array.from(seed).map(s => parseInt(s) % shapes.length);
-
-    updateAllNoInputs(shapeIndexes);
 
     const changePath = (shapeIndex, i) => {
         if (curShapeIndex[i] === shapeIndex) return;
@@ -421,6 +397,7 @@ const updateNoPosition = () => {
 };
 
 const updateNoContent = () => {
+    shapeIndexes.forEach((val, i) => document.getElementById(`no${i}`).value = val);
     document.title = shapeIndexes.join('');
     updateUrlWithSeed(shapeIndexes.join(''));
     curSeedElement.value = shapeIndexes.join('');
@@ -527,6 +504,11 @@ const changeSeed = () => {
     generateSymbol();
 }
 
+const changeRangeSeed = () => {
+    seed = [...Array(8).keys()].map(i => document.getElementById(`no${i}`).value).join('');
+    generateSymbol();
+}
+
 const init = () => {
     generateNoElements();
     changeLogo(handleSeedQueryParam());
@@ -543,6 +525,7 @@ const init = () => {
     resizeObserver.observe(logoElement);
     logoSymbol.addEventListener('mouseover', () => logoElement.parentElement.classList.add('showGrid'));
     logoSymbol.addEventListener('mouseout', () => gridToggler.value == 0 ? logoElement.parentElement.classList.remove('showGrid') : '');
+    [...Array(8).keys()].forEach(i => document.getElementById(`no${i}`).addEventListener('change', changeRangeSeed));
 }
 
 init();
