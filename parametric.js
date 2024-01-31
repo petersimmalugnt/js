@@ -193,6 +193,9 @@ const logos = [
             <path d="M0 250H1000" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
             <path d="M0 362.5H1000" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
             <path d="M0 356.25H1000" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
+            <path d="M0 812.5H1000" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
+            <path d="M0 818.75H1000" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
+            <path d="M0 825H1000" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
             <path d="M0 231.25H1000" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
             <path d="M0 206.25H1000" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
             <path d="M0 375H1000" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
