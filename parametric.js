@@ -342,7 +342,13 @@ const generateSymbol = () => {
 
     const changePath = (shapeIndex, i) => {
         if (curShapeIndex[i] === shapeIndex) return;
-        curShapeIndex[i] = (curShapeIndex[i] + 1) % shapes.length;
+
+        if ((i === 0 || i === 1) && logoPicker.value === '3') {
+            curShapeIndex[i] = 0;
+        } else {
+            curShapeIndex[i] = (curShapeIndex[i] + 1) % shapes.length;
+        }
+
         const pathElement = document.getElementById(`m${i}`);
         pathElement.setAttribute('d', shapes[curShapeIndex[i]]);
         if (i === 3) regMark.id.setAttribute('d', curShapeIndex[i] === 0 || curShapeIndex[i] === 3 ? regMark.d[regMark.curMark] : '');
