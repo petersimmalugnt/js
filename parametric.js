@@ -297,6 +297,18 @@ const colorThemes = [
         name: 'ORANGE',
         bg: '#000000',
         logo: '#f75320'
+    },{
+        name: 'WHITE',
+        bg: '#000000',
+        logo: '#ffffff'
+    },{
+        name: 'WHITE',
+        bg: '#000000',
+        logo: '#ffffff'
+    },{
+        name: 'WHITE',
+        bg: '#000000',
+        logo: '#ffffff'
     }
 ]
 
@@ -454,6 +466,10 @@ const changeColors = () => {
 
     document.documentElement.style.setProperty('--bg', bgColor);
     document.documentElement.style.setProperty('--txt', logoColor);
+
+    document.getElementById('video1').style.display = val === '8' ? 'block' : 'none';
+    document.getElementById('video2').style.display = val === '9' ? 'block' : 'none';
+    document.getElementById('video3').style.display = val === '10' ? 'block' : 'none';
 
 }
 
