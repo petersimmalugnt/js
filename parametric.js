@@ -2,22 +2,22 @@ const fps = 1000 / 60;
 const speed = fps * 4;
 const stackDelay = fps * 2;
 
-const logoElement = document.getElementById('logo');
-const logoPicker = document.getElementById('logoPicker');
-const marking = document.getElementById('marking');
-const gridToggler = document.getElementById('gridToggler');
-const colorTheme = document.getElementById('colorTheme');
-const randomizeBtn = document.getElementById('randomizeSymbol');
-const resetBtn = document.getElementById('resetSymbol');
-const downloadElement = document.getElementById('download');
-const logoSymbol = document.getElementById('logo--symbol');
-const curSeedElement = document.getElementById('currentSeed');
+const logoElement = document.getElementById("logo");
+const logoPicker = document.getElementById("logoPicker");
+const marking = document.getElementById("marking");
+const gridToggler = document.getElementById("gridToggler");
+const colorTheme = document.getElementById("colorTheme");
+const randomizeBtn = document.getElementById("randomizeSymbol");
+const resetBtn = document.getElementById("resetSymbol");
+const downloadElement = document.getElementById("download");
+const logoSymbol = document.getElementById("logo--symbol");
+const curSeedElement = document.getElementById("currentSeed");
 
 const logos = [
-    {
-        name: 'PARAMETRIC',
-        seed: '23131151',
-        wordmark: `
+  {
+    name: "PARAMETRIC",
+    seed: "23131151",
+    wordmark: `
             <path d="M1200 350.88H1298.08C1348.41 350.88 1384.54 382.09 1384.54 430.89C1384.54 479.69 1347.65 510.62 1298.08 510.62H1239.58V600H1200V350.88ZM1295 474.11C1323.82 474.11 1344.19 458.94 1344.19 430.89C1344.19 402.84 1323.83 387 1295 387H1239.58V474.11H1295Z" fill="black"/>
             <path d="M1606.21 402.49H1644.26V444.37H1652.33C1658.09 425.16 1676.54 399.03 1716.5 399.03V440.14H1703.44C1663.48 440.14 1644.65 468.58 1644.65 500.47V599.99H1606.22V402.48L1606.21 402.49Z" fill="black"/>
             <path d="M1939.71 402.49H1978.14V437.84H1985.82C1991.58 416.71 2010.8 397.5 2041.16 397.5C2073.82 397.5 2094.18 415.94 2101.87 437.84H2110.33C2117.63 416.33 2136.07 397.5 2166.43 397.5C2210.61 397.5 2235.21 430.93 2235.21 469.36V600.01H2196.79V480.51C2196.79 452.07 2179.5 434.01 2152.6 434.01C2125.7 434.01 2106.87 452.45 2106.87 484.73V600.01H2068.45V480.12C2068.45 452.07 2049.24 434.01 2023.49 434.01C1997.74 434.01 1978.15 455.14 1978.15 484.73V600.01H1939.72V402.5L1939.71 402.49Z" fill="black"/>
@@ -30,7 +30,7 @@ const logos = [
             <path d="M1487.12 397.5C1446 397.5 1416.41 419.79 1407.96 454.75L1442.16 464.36C1444.85 448.23 1459.07 430.93 1487.12 430.93C1515.17 430.93 1533.62 450.14 1533.62 474.35V479.73H1471.76C1428.34 479.73 1399.51 504.71 1399.51 541.59C1399.51 578.47 1428.71 605 1470.22 605C1502.5 605 1524.4 588.48 1529.78 563.12H1537.47V600.01H1571.28V474.36C1571.28 434.78 1542.85 397.51 1487.13 397.51L1487.12 397.5ZM1533.61 515.47C1533.61 543.52 1517.86 572.72 1477.51 572.72C1455.99 572.72 1438.31 560.81 1438.31 540.83C1438.31 522.39 1451.76 510.09 1475.97 510.09H1533.6V515.47H1533.61Z" fill="black"/>
             <path d="M1820.62 397.5C1779.5 397.5 1749.91 419.79 1741.46 454.75L1775.66 464.36C1778.35 448.23 1792.57 430.93 1820.62 430.93C1848.67 430.93 1867.12 450.14 1867.12 474.35V479.73H1805.26C1761.84 479.73 1733.01 504.71 1733.01 541.59C1733.01 578.47 1762.21 605 1803.72 605C1836 605 1857.9 588.48 1863.28 563.12H1870.97V600.01H1904.78V474.36C1904.78 434.78 1876.35 397.51 1820.63 397.51L1820.62 397.5ZM1867.11 515.47C1867.11 543.52 1851.36 572.72 1811.01 572.72C1789.49 572.72 1771.81 560.81 1771.81 540.83C1771.81 522.39 1785.26 510.09 1809.47 510.09H1867.1V515.47H1867.11Z" fill="black"/>
         `,
-        grid: `
+    grid: `
             <path d="M0 200H3250" stroke="black" stroke-miterlimit="10"/>
             <path d="M0 400H3250" stroke="black" stroke-miterlimit="10"/>
             <path d="M0 600H3250" stroke="black" stroke-miterlimit="10"/>
@@ -44,11 +44,12 @@ const logos = [
             <path d="M800 0V800" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
             <path d="M400 0V800" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
         `,
-        width: 3250,
-    },{
-        name: 'HEKTAR',
-        seed: '00131451',
-        wordmark: `
+    width: 3250,
+  },
+  {
+    name: "HEKTAR",
+    seed: "00131451",
+    wordmark: `
                 <g id="logo--wordmark">
                 <path fill="black" d="M1357.3 490.75H1239.96V600H1200V350.89H1239.96V453.09H1357.3V350.89H1397.26V600H1357.3V490.75Z" />
                 <path fill="black" d="M1422.98 500.09C1422.98 438.22 1466.4 397.49 1521.73 397.49C1581.68 397.49 1617.03 443.22 1615.1 495.48L1614.33 513.92H1461.02C1465.63 548.89 1487.14 571.18 1522.5 571.18C1546.71 571.18 1566.31 560.03 1577.83 541.98L1606.27 560.42C1590.51 586.93 1561.31 604.99 1522.5 604.99C1463.33 604.99 1422.97 561.57 1422.97 500.09H1422.98ZM1577.84 481.65C1577.07 453.22 1554.02 430.16 1521.74 430.16C1489.46 430.16 1467.95 451.29 1461.8 481.65H1577.84Z"/>
@@ -57,7 +58,7 @@ const logos = [
                 <path fill="black" d="M2164.91 402.49H2202.95V444.37H2211.02C2216.79 425.16 2235.23 399.03 2275.19 399.03V440.14H2262.13C2222.17 440.14 2203.34 468.57 2203.34 500.47V599.99H2164.92V402.48L2164.91 402.49Z"/>
                 <path fill="black" d="M2045.42 397.5C2004.31 397.5 1974.72 419.79 1966.27 454.76L2000.47 464.37C2003.16 448.23 2017.38 430.94 2045.43 430.94C2073.48 430.94 2091.92 450.15 2091.92 474.36V479.74H2030.06C1986.64 479.74 1957.82 504.72 1957.82 541.61C1957.82 578.5 1987.02 605.01 2028.52 605.01C2060.8 605.01 2082.7 588.49 2088.09 563.13H2095.77V600.02H2129.59V474.37C2129.59 434.79 2101.15 397.52 2045.43 397.52L2045.42 397.5ZM2091.91 515.46C2091.91 543.51 2076.16 572.72 2035.81 572.72C2014.3 572.72 1996.62 560.81 1996.62 540.83C1996.62 522.39 2010.07 510.09 2034.28 510.09H2091.91V515.47V515.46Z"/>
         `,
-        grid: `
+    grid: `
             <path d="M0 200H2475" stroke="black" stroke-width="1" stroke-miterlimit="10"/>
             <path d="M0 400H2475" stroke="black" stroke-width="1" stroke-miterlimit="10"/>
             <path d="M0 600H2475" stroke="black" stroke-width="1" stroke-miterlimit="10"/>
@@ -71,11 +72,12 @@ const logos = [
             <path d="M800 0V800" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5,5"/>
             <path d="M400 0V800" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5,5"/>
         `,
-        width: 2475,
-    },{
-        name: 'HEKTAR_BY_PARAMETRIC',
-        seed: '00131451',
-        wordmark: `
+    width: 2475,
+  },
+  {
+    name: "HEKTAR_BY_PARAMETRIC",
+    seed: "00131451",
+    wordmark: `
             <path d="M1263.2 406.1H1216.06V450H1200V349.91H1216.06V390.97H1263.2V349.91H1279.26V450H1263.2V406.1Z" fill="black"/>
             <path d="M1289.59 409.861C1289.59 385.001 1307.04 368.641 1329.27 368.641C1353.36 368.641 1367.56 387.011 1366.79 408.011L1366.48 415.421H1304.88C1306.73 429.471 1315.38 438.421 1329.58 438.421C1339.31 438.421 1347.18 433.941 1351.81 426.691L1363.24 434.101C1356.91 444.751 1345.18 452.011 1329.58 452.011C1305.8 452.011 1289.59 434.561 1289.59 409.861ZM1351.81 402.451C1351.5 391.031 1342.24 381.761 1329.27 381.761C1316.3 381.761 1307.66 390.251 1305.19 402.451H1351.81Z" fill="black"/>
             <path d="M1375.73 349.91H1391.01V402.45H1394.1L1425.75 370.65H1443.97V372.66L1414.94 401.38L1445.51 448V450.01H1428.53L1403.83 412.34L1391.02 425V450.01H1375.74V349.92L1375.73 349.91Z" fill="black"/>
@@ -96,7 +98,7 @@ const logos = [
             <path d="M1218.53 585.8H1215.29V600H1200.01V500H1215.29V534.85H1218.38C1221.93 525.9 1231.5 518.64 1244.78 518.64C1265.78 518.64 1280.75 536.55 1280.75 560.48C1280.75 584.41 1266.08 602.01 1244.78 602.01C1231.35 602.01 1221.93 595.37 1218.53 585.8ZM1239.68 587.96C1254.19 587.96 1265 577.31 1265 560.48C1265 543.65 1254.19 532.69 1239.99 532.69C1225.79 532.69 1214.67 542.88 1214.67 560.48C1214.67 575.92 1224.86 587.96 1239.68 587.96Z" fill="black"/>
             <path d="M1351.08 520.65L1327 586.41H1323.76L1300.44 520.65H1284.7V522.65L1312.64 600H1320.98L1312.19 623.08V625H1328.56L1367.14 522.65V520.65H1351.08Z" fill="black"/>
         `,
-        grid: `
+    grid: `
             <path d="M0 200H2362.5" stroke="black" stroke-miterlimit="10"/>
             <path d="M0 400H2362.5" stroke="black" stroke-miterlimit="10"/>
             <path d="M0 600H2362.5" stroke="black" stroke-miterlimit="10"/>
@@ -117,11 +119,12 @@ const logos = [
             <path d="M1200 475H2162.5" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
             <path d="M1200 550H2162.5" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
         `,
-        width: 2362.5,
-    },{
-        name: 'HEKTAR_BY_PARAMETRIC___LARGE_GRAPHIC',
-        seed: '00131451',
-        wordmark: `
+    width: 2362.5,
+  },
+  {
+    name: "HEKTAR_BY_PARAMETRIC___LARGE_GRAPHIC",
+    seed: "00131451",
+    wordmark: `
             <path d="M200.741 350.1C200.741 346.5 203.431 343.72 207.031 343.72C209.701 343.72 211.581 345.09 212.461 346.88L210.891 347.76C210.331 346.53 208.991 345.44 207.021 345.44C204.491 345.44 202.591 347.39 202.591 350.1C202.591 352.81 204.421 354.78 206.981 354.78C209.211 354.78 211.011 353.16 211.151 351.19V351.17H207.111V349.54H212.981V356.25H211.151V353.91H210.801C210.251 355.6 208.711 356.48 206.651 356.48C203.261 356.48 200.721 353.74 200.721 350.1H200.741Z" fill="black"/>
             <path d="M215.301 351.68C215.301 348.85 217.291 346.99 219.821 346.99C222.561 346.99 224.181 349.08 224.091 351.47L224.061 352.31H217.051C217.261 353.91 218.241 354.93 219.861 354.93C220.971 354.93 221.861 354.42 222.391 353.59L223.691 354.43C222.971 355.64 221.631 356.47 219.861 356.47C217.151 356.47 215.311 354.48 215.311 351.67L215.301 351.68ZM222.381 350.84C222.341 349.54 221.291 348.49 219.811 348.49C218.331 348.49 217.351 349.46 217.071 350.84H222.381Z" fill="black"/>
             <path d="M226.289 347.22H228.049V348.84H228.399C228.679 347.87 229.589 346.99 230.979 346.99C233.069 346.99 234.179 348.55 234.179 350.28V356.26H232.419V350.79C232.419 349.54 231.489 348.66 230.309 348.66C228.959 348.66 228.039 349.64 228.039 350.98V356.25H226.279V347.22H226.289Z" fill="black"/>
@@ -182,7 +185,7 @@ const logos = [
             <path d="M205.52 270.31H204.55V274.54H199.99V244.73H204.55V255.12H205.47C206.53 252.45 209.38 250.29 213.34 250.29C219.6 250.29 224.06 255.63 224.06 262.76C224.06 269.89 219.69 275.14 213.34 275.14C209.34 275.14 206.53 273.16 205.52 270.31ZM211.83 270.96C216.16 270.96 219.38 267.78 219.38 262.77C219.38 257.76 216.16 254.49 211.92 254.49C207.68 254.49 204.37 257.53 204.37 262.77C204.37 267.37 207.41 270.96 211.83 270.96Z" fill="black"/>
             <path d="M245.04 250.89L237.86 270.5H236.89L229.94 250.89H225.25V251.49L233.58 274.55H236.06L233.44 281.43V282H238.32L249.82 251.49V250.89H245.04Z" fill="black"/>
         `,
-        grid: `
+    grid: `
             <path d="M0 200H1200" stroke="black" stroke-miterlimit="10"/>
             <path d="M0 400H1200" stroke="black" stroke-miterlimit="10"/>
             <path d="M0 600H1200" stroke="black" stroke-miterlimit="10"/>
@@ -205,12 +208,13 @@ const logos = [
             <path d="M400 0V800" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
             <path d="M1000 0V800" stroke="black" stroke-miterlimit="10"/>
         `,
-        width: 1200
-    },{
-        name: 'PARAMETRIC_SYMBOL',
-        seed: '23131151',
-        wordmark: '',
-        grid: `
+    width: 1200,
+  },
+  {
+    name: "PARAMETRIC_SYMBOL",
+    seed: "23131151",
+    wordmark: "",
+    grid: `
             <path d="M0 200H1200" stroke="black" stroke-miterlimit="10"/>
             <path d="M0 400H1200" stroke="black" stroke-miterlimit="10"/>
             <path d="M0 600H1200" stroke="black" stroke-miterlimit="10"/>
@@ -220,12 +224,13 @@ const logos = [
             <path d="M400 0V800" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
             <path d="M1000 0V800" stroke="black" stroke-miterlimit="10"/>
         `,
-        width: 1200
-    },{
-        name: 'HEKTAR_SYMBOL',
-        seed: '00131451',
-        wordmark: '',
-        grid: `
+    width: 1200,
+  },
+  {
+    name: "HEKTAR_SYMBOL",
+    seed: "00131451",
+    wordmark: "",
+    grid: `
             <path d="M0 200H1200" stroke="black" stroke-miterlimit="10"/>
             <path d="M0 400H1200" stroke="black" stroke-miterlimit="10"/>
             <path d="M0 600H1200" stroke="black" stroke-miterlimit="10"/>
@@ -235,313 +240,404 @@ const logos = [
             <path d="M400 0V800" stroke="black" stroke-width="0.5" stroke-miterlimit="1" stroke-dasharray="5 5"/>
             <path d="M1000 0V800" stroke="black" stroke-miterlimit="10"/>
         `,
-        width: 1200
-    }
-]
+    width: 1200,
+  },
+];
 
 let curLogo = 0;
 let seed = logos[curLogo].seed;
-let curShapeIndex = [0,0,0,0,0,0,0,0];
+let curShapeIndex = [0, 0, 0, 0, 0, 0, 0, 0];
 let shapeIndexes = curShapeIndex;
 let timeouts = [];
 
 const shapes = [
-    '',
-    'M0 0 L200 0 L200 200 L0 200 Z',
-    'M200 0 L200 200 L0 200 Z',
-    'M0 0 L200 200 L0 200 Z',
-    'M0 0 L200 0 L0 200 Z',
-    'M0 0 L200 0 L200 200 Z'
+  "",
+  "M0 0 L200 0 L200 200 L0 200 Z",
+  "M200 0 L200 200 L0 200 Z",
+  "M0 0 L200 200 L0 200 Z",
+  "M0 0 L200 0 L0 200 Z",
+  "M0 0 L200 0 L200 200 Z",
 ];
 
 const regMark = {
-    id: document.getElementById('regMark'),
-    curMark: 0,
-    d: [
-        'M956.84 204.36H950V200H968.23V204.36H961.39V224.13H956.83V204.36H956.84ZM972.12 200H981.5L985.39 219.71H986.73L990.68 200H1000V224.13H995.51V204.36H994.17L990.15 224.13H981.97L977.95 204.36H976.61V224.13H972.12V200Z',
-        'M962.5 218.75C962.5 208.35 970.4 200 981.03 200C992.19 200 1000 208.26 1000 218.66C1000 229.06 992.27 237.5 981.21 237.5C970.15 237.5 962.5 229.24 962.5 218.75ZM981.21 233.23C989.73 233.23 995.44 227.1 995.44 218.66C995.44 210.22 989.65 204.35 981.04 204.35C972.96 204.35 967.08 210.39 967.08 218.75C967.08 227.11 972.96 233.23 981.22 233.23H981.21ZM974 209.06H982.69C986.64 209.06 988.92 211.28 988.92 214.04C988.92 216.62 986.99 217.95 985.06 218.04V219.55C987.26 219.55 988.84 221.24 988.84 223.37V228.26H984.54V224.44C984.54 222.75 983.49 221.86 981.55 221.86H978.3V228.26H974V209.06ZM981.56 218.13C983.49 218.13 984.46 216.71 984.46 215.38C984.46 213.96 983.5 212.71 981.56 212.71H978.31V218.13H981.56Z',
-        '',
-    ]
+  id: document.getElementById("regMark"),
+  curMark: 0,
+  d: [
+    "M956.84 204.36H950V200H968.23V204.36H961.39V224.13H956.83V204.36H956.84ZM972.12 200H981.5L985.39 219.71H986.73L990.68 200H1000V224.13H995.51V204.36H994.17L990.15 224.13H981.97L977.95 204.36H976.61V224.13H972.12V200Z",
+    "M962.5 218.75C962.5 208.35 970.4 200 981.03 200C992.19 200 1000 208.26 1000 218.66C1000 229.06 992.27 237.5 981.21 237.5C970.15 237.5 962.5 229.24 962.5 218.75ZM981.21 233.23C989.73 233.23 995.44 227.1 995.44 218.66C995.44 210.22 989.65 204.35 981.04 204.35C972.96 204.35 967.08 210.39 967.08 218.75C967.08 227.11 972.96 233.23 981.22 233.23H981.21ZM974 209.06H982.69C986.64 209.06 988.92 211.28 988.92 214.04C988.92 216.62 986.99 217.95 985.06 218.04V219.55C987.26 219.55 988.84 221.24 988.84 223.37V228.26H984.54V224.44C984.54 222.75 983.49 221.86 981.55 221.86H978.3V228.26H974V209.06ZM981.56 218.13C983.49 218.13 984.46 216.71 984.46 215.38C984.46 213.96 983.5 212.71 981.56 212.71H978.31V218.13H981.56Z",
+    "",
+  ],
 };
 
 const colorThemes = [
-    {
-        name: 'BLACK',
-        bg: '#ffffff',
-        logo: '#000000'
-    },{
-        name: 'WHITE',
-        bg: '#000000',
-        logo: '#ffffff'
-    },{
-        name: 'WHITE',
-        bg: '#66ba9b',
-        logo: '#ffffff'
-    },{
-        name: 'GREEN',
-        bg: '#ffffff',
-        logo: '#66ba9b'
-    },{
-        name: 'GREEN',
-        bg: '#000000',
-        logo: '#66ba9b'
-    },{
-        name: 'WHITE',
-        bg: '#f75320',
-        logo: '#ffffff'
-    },{
-        name: 'ORANGE',
-        bg: '#ffffff',
-        logo: '#f75320'
-    },{
-        name: 'ORANGE',
-        bg: '#000000',
-        logo: '#f75320'
-    },{
-        name: 'WHITE',
-        bg: '#000000',
-        logo: '#ffffff'
-    },{
-        name: 'WHITE',
-        bg: '#000000',
-        logo: '#ffffff'
-    },{
-        name: 'WHITE',
-        bg: '#000000',
-        logo: '#ffffff'
-    }
-]
+  {
+    name: "BLACK",
+    bg: "#ffffff",
+    logo: "#000000",
+  },
+  {
+    name: "WHITE",
+    bg: "#000000",
+    logo: "#ffffff",
+  },
+  {
+    name: "WHITE",
+    bg: "#66ba9b",
+    logo: "#ffffff",
+  },
+  {
+    name: "GREEN",
+    bg: "#ffffff",
+    logo: "#66ba9b",
+  },
+  {
+    name: "GREEN",
+    bg: "#000000",
+    logo: "#66ba9b",
+  },
+  {
+    name: "WHITE",
+    bg: "#f75320",
+    logo: "#ffffff",
+  },
+  {
+    name: "ORANGE",
+    bg: "#ffffff",
+    logo: "#f75320",
+  },
+  {
+    name: "ORANGE",
+    bg: "#000000",
+    logo: "#f75320",
+  },
+  {
+    name: "WHITE",
+    bg: "#000000",
+    logo: "#ffffff",
+  },
+  {
+    name: "WHITE",
+    bg: "#000000",
+    logo: "#ffffff",
+  },
+  {
+    name: "WHITE",
+    bg: "#000000",
+    logo: "#ffffff",
+  },
+];
 
 const resetSymbol = () => {
-    seed = logos[curLogo].seed;
-    generateSymbol();
-}
+  seed = logos[curLogo].seed;
+  generateSymbol();
+};
 
 const randomizeSeed = () => {
-    seed = Math.floor(Math.random() * 100000000).toString().padStart(8, '0');
-    generateSymbol();
-}
+  seed = Math.floor(Math.random() * 100000000)
+    .toString()
+    .padStart(8, "0");
+  generateSymbol();
+};
 
 const generateSymbol = () => {
-    timeouts.forEach(clearTimeout);
-    timeouts = [];
+  timeouts.forEach(clearTimeout);
+  timeouts = [];
 
-    shapeIndexes = Array.from(seed).map(s => parseInt(s) % shapes.length);
+  shapeIndexes = Array.from(seed).map((s) => parseInt(s) % shapes.length);
 
-    const changePath = (shapeIndex, i) => {
-        if (curShapeIndex[i] === shapeIndex) return;
+  const changePath = (shapeIndex, i) => {
+    if (curShapeIndex[i] === shapeIndex) return;
 
-        if ((i === 0 || i === 1) && logoPicker.value === '3') {
-            curShapeIndex[i] = 0;
-        } else {
-            curShapeIndex[i] = (curShapeIndex[i] + 1) % shapes.length;
-        }
+    if ((i === 0 || i === 1) && logoPicker.value === "3") {
+      curShapeIndex[i] = 0;
+    } else {
+      curShapeIndex[i] = (curShapeIndex[i] + 1) % shapes.length;
+    }
 
-        const pathElement = document.getElementById(`m${i}`);
-        pathElement.setAttribute('d', shapes[curShapeIndex[i]]);
-        if (i === 3) regMark.id.setAttribute('d', curShapeIndex[i] === 0 || curShapeIndex[i] === 3 ? regMark.d[regMark.curMark] : '');
-        
-        const timeoutId = setTimeout(() => changePath(shapeIndex, i), speed);
-        timeouts.push(timeoutId);
-    };
+    const pathElement = document.getElementById(`m${i}`);
+    pathElement.setAttribute("d", shapes[curShapeIndex[i]]);
+    if (i === 3)
+      regMark.id.setAttribute(
+        "d",
+        curShapeIndex[i] === 0 || curShapeIndex[i] === 3
+          ? regMark.d[regMark.curMark]
+          : ""
+      );
 
-    shapeIndexes.forEach((shapeIndex, i) => {
-        const timeoutId = setTimeout(() => changePath(shapeIndex, i), stackDelay * i);
-        timeouts.push(timeoutId);
-    });
+    const timeoutId = setTimeout(() => changePath(shapeIndex, i), speed);
+    timeouts.push(timeoutId);
+  };
 
-    updateNoContent();
-}
+  shapeIndexes.forEach((shapeIndex, i) => {
+    const timeoutId = setTimeout(
+      () => changePath(shapeIndex, i),
+      stackDelay * i
+    );
+    timeouts.push(timeoutId);
+  });
+
+  updateNoContent();
+};
 
 function download(href, name) {
-    const a = document.createElement('a');
+  const a = document.createElement("a");
 
-    a.download = name;
-    a.href = href;
+  a.download = name;
+  a.href = href;
 
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 const downloadFile = () => {
-    const imgType = downloadElement.value;
-    
-    if (imgType === '0') return;
+  const imgType = downloadElement.value;
 
-    logoElement.removeAttribute('width');
-    const viewBox = logoElement.getAttribute('viewBox').split(' ');
-    const width = viewBox[2];
-    const height = viewBox[3];
-    const fileName = `${logos[curLogo].name}___${colorThemes[colorTheme.value].name}${gridToggler.value === '1' ? '___GRID' : ''}___${seed}___${marking.value === '0' ? 'R' : marking.value === '1' ? 'TM' : ''}`;
-    const svgData = new XMLSerializer().serializeToString(logoElement);
-    
-    if (imgType === '1') {
-        const blob = new Blob([svgData], {type: "image/svg+xml"});
-        const url = URL.createObjectURL(blob);
-        download(URL.createObjectURL(new Blob([svgData], {type: "image/svg+xml"})), `${fileName}.svg`);
-        URL.revokeObjectURL(url);
-    };
+  if (imgType === "0") return;
 
-    if (imgType === '2') {
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-        canvas.width = width;
-        canvas.height = height;
-        let image = new Image;
-        image.onload = function () {
-            context.fillStyle = context.createPattern(image, 'no-repeat'); 
-            context.fillRect(0, 0, canvas.width, canvas.height); 
-            this.download(canvas.toDataURL("image/png"), `${fileName}.png`);
-        }.bind(this);
-        image.src = 'data:image/svg+xml;base64,' + btoa(svgData);
-    }
-    
-    logoElement.setAttribute('width', '100%');
-    downloadElement.value = 0;
+  logoElement.removeAttribute("width");
+  const viewBox = logoElement.getAttribute("viewBox").split(" ");
+  const width = viewBox[2];
+  const height = viewBox[3];
+  const fileName = `${logos[curLogo].name}___${
+    colorThemes[colorTheme.value].name
+  }${gridToggler.value === "1" ? "___GRID" : ""}___${seed}___${
+    marking.value === "0" ? "R" : marking.value === "1" ? "TM" : ""
+  }`;
+  const svgData = new XMLSerializer().serializeToString(logoElement);
+
+  if (imgType === "1") {
+    const blob = new Blob([svgData], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+    download(
+      URL.createObjectURL(new Blob([svgData], { type: "image/svg+xml" })),
+      `${fileName}.svg`
+    );
+    URL.revokeObjectURL(url);
+  }
+
+  if (imgType === "2") {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    canvas.width = width;
+    canvas.height = height;
+    let image = new Image();
+    image.onload = function () {
+      context.fillStyle = context.createPattern(image, "no-repeat");
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      this.download(canvas.toDataURL("image/png"), `${fileName}.png`);
+    }.bind(this);
+    image.src = "data:image/svg+xml;base64," + btoa(svgData);
+  }
+
+  logoElement.setAttribute("width", "100%");
+  downloadElement.value = 0;
 };
 
 const updateNoPosition = () => {
   const block = logoElement.clientHeight / 4;
   for (let i = 0; i < 8; i++) {
-    document.getElementById(`sNo${i}`).style.left = `${block * (i % 4 + 1)}px`;
+    document.getElementById(`sNo${i}`).style.left = `${
+      block * ((i % 4) + 1)
+    }px`;
   }
 };
 
 const updateNoContent = () => {
-    shapeIndexes.forEach((val, i) => document.getElementById(`no${i}`).value = val);
-    document.title = shapeIndexes.join('');
-    updateUrlWithSeed(shapeIndexes.join(''));
-    curSeedElement.value = shapeIndexes.join('');
-    document.getElementById('rawSeed').innerText = shapeIndexes.join('');
-    shapeIndexes.forEach((v, i) => {
-        document.getElementById(`sNo${i}`).innerText = v;
-    });
-}
+  shapeIndexes.forEach(
+    (val, i) => (document.getElementById(`no${i}`).value = val)
+  );
+  document.title = shapeIndexes.join("");
+  updateUrlWithSeed(shapeIndexes.join(""));
+  curSeedElement.value = shapeIndexes.join("");
+  document.getElementById("rawSeed").innerText = shapeIndexes.join("");
+  shapeIndexes.forEach((v, i) => {
+    document.getElementById(`sNo${i}`).innerText = v;
+  });
+};
 
 const generateNoElements = () => {
+  document.documentElement.style.setProperty(
+    "--rawSeedFs",
+    `min(${logoPicker.value >= 3 ? 1.75 : 1}vw, .75rem)`
+  );
+  const div = document.createElement("div");
+  div.textContent = seed;
+  div.classList.add("rawSeed");
+  div.id = `rawSeed`;
+  div.style.fontSize = "var(--rawSeedFs)";
+  div.style.lineHeight = "1em";
+  div.style.position = "absolute";
+  div.style.left = "0px";
+  div.style.top = "calc(50% - 1.25em)";
+  logoElement.parentElement.appendChild(div);
 
-    const div = document.createElement('div');
-    div.textContent = seed;
-    div.classList.add('rawSeed');
-    div.id = `rawSeed`
-    div.style.fontSize = 'min(.625vw, .75rem)';
-    div.style.lineHeight = '1em';
-    div.style.position = 'absolute';
-    div.style.left = '0px';
-    div.style.top = 'calc(50% - 1.25em)';
+  shapeIndexes.forEach((value, index) => {
+    const div = document.createElement("div");
+    div.textContent = value;
+    div.classList.add("sNo");
+    div.id = `sNo${index}`;
+    div.style.fontSize = "var(--rawSeedFs)";
+    div.style.lineHeight = "1em";
+    div.style.position = "absolute";
+    div.style.transform = "translateX(-50%)";
+
+    index < 4 ? (div.style.top = "-1.5em") : (div.style.bottom = "-1.5em");
+
     logoElement.parentElement.appendChild(div);
-
-    shapeIndexes.forEach((value, index) => {
-        const div = document.createElement('div');
-        div.textContent = value;
-        div.classList.add('sNo');
-        div.id = `sNo${index}`
-        div.style.fontSize = 'min(.625vw, .75rem)';
-        div.style.lineHeight = '1em';
-        div.style.position = 'absolute';
-        div.style.transform = 'translateX(-50%)';
-
-        (index < 4) ? div.style.top = '-1.5em' : div.style.bottom = '-1.5em';
-
-        logoElement.parentElement.appendChild(div);
-    });
-    updateNoPosition();
-}
+  });
+  updateNoPosition();
+};
 
 const changeMarking = () => {
-    regMark.curMark = marking.value
-    regMark.id.setAttribute('d', regMark.d[regMark.curMark])
-}
+  regMark.curMark = marking.value;
+  regMark.id.setAttribute("d", regMark.d[regMark.curMark]);
+};
 
 const changeColors = () => {
-    const val = colorTheme.value;
-    const logoColor = colorThemes[val].logo;
-    const bgColor = colorThemes[val].bg;
+  const val = colorTheme.value;
+  const logoColor = colorThemes[val].logo;
+  const bgColor = colorThemes[val].bg;
 
-    document.querySelectorAll('svg [fill], svg [stroke]').forEach(el => {
-        if (el.hasAttribute('fill')) el.setAttribute('fill', logoColor);
-        if (el.hasAttribute('stroke')) el.setAttribute('stroke', logoColor);
-    });
+  document.querySelectorAll("svg [fill], svg [stroke]").forEach((el) => {
+    if (el.hasAttribute("fill")) el.setAttribute("fill", logoColor);
+    if (el.hasAttribute("stroke")) el.setAttribute("stroke", logoColor);
+  });
 
-    document.documentElement.style.setProperty('--bg', bgColor);
-    document.documentElement.style.setProperty('--txt', logoColor);
+  document.documentElement.style.setProperty("--bg", bgColor);
+  document.documentElement.style.setProperty("--txt", logoColor);
 
-    document.getElementById('video1').style.display = val === '8' ? 'block' : 'none';
-    document.getElementById('video2').style.display = val === '9' ? 'block' : 'none';
-    document.getElementById('video3').style.display = val === '10' ? 'block' : 'none';
-
-}
+  document.getElementById("video1").style.display =
+    val === "8" ? "block" : "none";
+  document.getElementById("video2").style.display =
+    val === "9" ? "block" : "none";
+  document.getElementById("video3").style.display =
+    val === "10" ? "block" : "none";
+};
 
 const changeLogo = (hasQuery) => {
-    const logoGroup = document.querySelector('#logo--wordmark');
-    const val = logoPicker.value;
-    logoGroup.innerHTML = logos[val].wordmark;
-    curLogo = val;
-    logoElement.setAttribute('viewBox', `0 0 ${logos[val].width} 800`);
-    if (hasQuery) seed = logos[val].seed;
-    generateSymbol();
-    toggleGrid();
-}
+  const logoGroup = document.querySelector("#logo--wordmark");
+  const val = logoPicker.value;
+  logoGroup.innerHTML = logos[val].wordmark;
+  curLogo = val;
+  logoElement.setAttribute("viewBox", `0 0 ${logos[val].width} 800`);
+  if (hasQuery) seed = logos[val].seed;
+  document.documentElement.style.setProperty(
+    "--rawSeedFs",
+    `min(${logoPicker.value >= 3 ? 1.75 : 1}vw, .75rem)`
+  );
+  generateSymbol();
+  toggleGrid();
+};
 const toggleGrid = () => {
-    const gridGroup = document.querySelector('#logo--grid');
-    if (gridToggler.value === '0') {
-        gridGroup.innerHTML = '';
-        logoElement.parentElement.classList.remove('showGrid');
-    } else {
-        gridGroup.innerHTML = logos[curLogo].grid;
-        logoElement.parentElement.classList.add('showGrid');
-    }
-    changeColors();
-}
+  const gridGroup = document.querySelector("#logo--grid");
+  if (gridToggler.value === "0") {
+    gridGroup.innerHTML = "";
+    logoElement.parentElement.classList.remove("showGrid");
+  } else {
+    gridGroup.innerHTML = logos[curLogo].grid;
+    logoElement.parentElement.classList.add("showGrid");
+  }
+  changeColors();
+};
 
 const getValidNumericQueryParam = (paramName) => {
-    const paramValue = new URLSearchParams(window.location.search).get(paramName);
-    return paramValue && /^\d+$/.test(paramValue) ? paramValue : null;
+  const paramValue = new URLSearchParams(window.location.search).get(paramName);
+  return paramValue && /^\d+$/.test(paramValue) ? paramValue : null;
 };
 
 const updateUrlWithSeed = (seed) => {
   const newUrl = `${window.location.origin}${window.location.pathname}?seed=${seed}`;
-  history.pushState(null, '', newUrl);
+  history.pushState(null, "", newUrl);
 };
 
 const handleSeedQueryParam = () => {
-    let querySeed = getValidNumericQueryParam('seed');
-    if (!querySeed) return true;    
-    querySeed = querySeed.padStart(8, '0').slice(0, 8);
-    seed = querySeed;
-    console.log(seed)
-    return false
+  let querySeed = getValidNumericQueryParam("seed");
+  if (!querySeed) return true;
+  querySeed = querySeed.padStart(8, "0").slice(0, 8);
+  seed = querySeed;
+  console.log(seed);
+  return false;
 };
 
 const changeSeed = () => {
-    const val = curSeedElement.value.padStart(8, '0').slice(0, 8).toString();
-    seed = val;
-    generateSymbol();
-}
+  const val = curSeedElement.value.padStart(8, "0").slice(0, 8).toString();
+  seed = val;
+  generateSymbol();
+};
 
 const changeRangeSeed = () => {
-    seed = [...Array(8).keys()].map(i => document.getElementById(`no${i}`).value).join('');
-    generateSymbol();
-}
+  seed = [...Array(8).keys()]
+    .map((i) => document.getElementById(`no${i}`).value)
+    .join("");
+  generateSymbol();
+};
 
 const init = () => {
-    generateNoElements();
-    changeLogo(handleSeedQueryParam());
-    curSeedElement.addEventListener('input', () => curSeedElement.value = curSeedElement.value.replace(/[^0-9]/g, '').slice(-8));
-    curSeedElement.addEventListener('change', changeSeed);
-    randomizeBtn.addEventListener('click', randomizeSeed);
-    resetBtn.addEventListener('click', resetSymbol);
-    logoPicker.addEventListener('change', changeLogo);
-    gridToggler.addEventListener('change', toggleGrid);
-    marking.addEventListener('change', changeMarking);
-    colorTheme.addEventListener('change', changeColors);
-    downloadElement.addEventListener('change', downloadFile);
-    const resizeObserver = new ResizeObserver(updateNoPosition);
-    resizeObserver.observe(logoElement);
-    logoSymbol.addEventListener('mouseover', () => logoElement.parentElement.classList.add('showGrid'));
-    logoSymbol.addEventListener('mouseout', () => gridToggler.value == 0 ? logoElement.parentElement.classList.remove('showGrid') : '');
-    [...Array(8).keys()].forEach(i => document.getElementById(`no${i}`).addEventListener('change', changeRangeSeed));
-}
+  generateNoElements();
+  changeLogo(handleSeedQueryParam());
+  curSeedElement.addEventListener(
+    "input",
+    () =>
+      (curSeedElement.value = curSeedElement.value
+        .replace(/[^0-9]/g, "")
+        .slice(-8))
+  );
+  curSeedElement.addEventListener("change", changeSeed);
+  randomizeBtn.addEventListener("click", randomizeSeed);
+  resetBtn.addEventListener("click", resetSymbol);
+  logoPicker.addEventListener("change", changeLogo);
+  gridToggler.addEventListener("change", toggleGrid);
+  marking.addEventListener("change", changeMarking);
+  colorTheme.addEventListener("change", changeColors);
+  downloadElement.addEventListener("change", downloadFile);
+  const resizeObserver = new ResizeObserver(updateNoPosition);
+  resizeObserver.observe(logoElement);
+  logoSymbol.addEventListener("mouseover", () =>
+    logoElement.parentElement.classList.add("showGrid")
+  );
+  logoSymbol.addEventListener("mouseout", () =>
+    gridToggler.value == 0
+      ? logoElement.parentElement.classList.remove("showGrid")
+      : ""
+  );
+  [...Array(8).keys()].forEach((i) =>
+    document
+      .getElementById(`no${i}`)
+      .addEventListener("change", changeRangeSeed)
+  );
+
+  /* KEY TRIGGERS */
+  const pressedKeys = new Set();
+
+  document.addEventListener("keydown", (e) => {
+    pressedKeys.add(e.key.toLowerCase());
+    const numKey = parseInt(e.key, 10);
+    if (!isNaN(numKey)) {
+      if (pressedKeys.has("l"))
+        logoPicker.value = Math.min(numKey, logoPicker.options.length - 1);
+      if (pressedKeys.has("m"))
+        marking.value = Math.min(numKey, marking.options.length - 1);
+      if (pressedKeys.has("b"))
+        colorTheme.value = Math.min(numKey, colorTheme.options.length - 1);
+      logoPicker.dispatchEvent(new Event("change"));
+      marking.dispatchEvent(new Event("change"));
+      colorTheme.dispatchEvent(new Event("change"));
+    } else {
+      if (e.key.toLowerCase() === "g") {
+        gridToggler.value = gridToggler.value === "0" ? "1" : "0";
+        gridToggler.dispatchEvent(new Event("change"));
+      }
+      if (e.key.toLowerCase() === "r")
+        randomizeBtn.dispatchEvent(new Event("click"));
+      if (e.key.toLowerCase() === "e")
+        resetBtn.dispatchEvent(new Event("click"));
+    }
+  });
+
+  document.addEventListener("keyup", (e) => {
+    pressedKeys.delete(e.key.toLowerCase());
+  });
+};
 
 init();
