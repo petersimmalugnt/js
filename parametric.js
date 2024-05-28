@@ -444,9 +444,11 @@ const updateNoPosition = () => {
 };
 
 const updateNoContent = () => {
-  shapeIndexes.forEach(
-    (val, i) => (document.getElementById(`no${i}`).value = val)
-  );
+  shapeIndexes.forEach((val, i) => {
+    const slider = document.getElementById(`no${i}`);
+    slider.value = val;
+    slider.style.setProperty("--percent", ` ${(100 / 5) * slider.value}%`);
+  });
   document.title = shapeIndexes.join("");
   updateUrlWithSeed(shapeIndexes.join(""));
   curSeedElement.value = shapeIndexes.join("");
@@ -566,7 +568,8 @@ const changeSeed = () => {
   generateSymbol();
 };
 
-const changeRangeSeed = () => {
+const changeRangeSeed = (e) => {
+  console.log(e.target);
   seed = [...Array(8).keys()]
     .map((i) => document.getElementById(`no${i}`).value)
     .join("");
@@ -601,11 +604,16 @@ const init = () => {
       ? logoElement.parentElement.classList.remove("showGrid")
       : ""
   );
-  [...Array(8).keys()].forEach((i) =>
-    document
-      .getElementById(`no${i}`)
-      .addEventListener("change", changeRangeSeed)
-  );
+  [...Array(8).keys()].forEach((i) => {
+    const slider = document.getElementById(`no${i}`);
+    slider.addEventListener("change", changeRangeSeed);
+    slider.addEventListener("input", (e) => {
+      e.target.style.setProperty(
+        "--percent",
+        ` ${(100 / 5) * e.target.value}%`
+      );
+    });
+  });
 
   /* KEY TRIGGERS */
   const pressedKeys = new Set();
