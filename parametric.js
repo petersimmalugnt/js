@@ -633,8 +633,9 @@ const init = () => {
       colorTheme.dispatchEvent(new Event("change"));
     } else {
       if (e.key.toLowerCase() === "g") {
-        gridToggler.value = gridToggler.value === "0" ? "1" : "0";
-        gridToggler.dispatchEvent(new Event("change"));
+        gridToggler.click();
+        /*gridToggler.value = gridToggler.value === "0" ? "1" : "0";
+        gridToggler.dispatchEvent(new Event("change"));*/
       }
       if (e.key.toLowerCase() === "r")
         randomizeBtn.dispatchEvent(new Event("click"));
