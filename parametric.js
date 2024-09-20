@@ -13,7 +13,6 @@ const resetBtn = document.getElementById("resetSymbol");
 const downloadElement = document.getElementById("download");
 const logoSymbol = document.getElementById("logo--symbol");
 const curSeedElement = document.getElementById("currentSeed");
-const cacheSettings = {};
 
 const logos = [
   {
@@ -452,7 +451,6 @@ const updateNoContent = () => {
     slider.style.setProperty("--percent", ` ${(100 / 5) * slider.value}%`);
   });
   document.title = shapeIndexes.join("");
-  // cacheSettings.seed = shapeIndexes.join("");
   curSeedElement.value = shapeIndexes.join("");
   document.getElementById("rawSeed").innerText = shapeIndexes.join("");
   shapeIndexes.forEach((v, i) => {
@@ -590,7 +588,7 @@ const changeRangeSeed = (e) => {
 };
 
 const init = () => {
-  hideUI = getValidNumericQueryParam("hideUI");
+  hideUI = getValidNumericQueryParam("hideUI") || hideUI;
   document.body.dataset.ui = hideUI;
   generateNoElements();
   handleSeedQueryParam();
