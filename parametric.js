@@ -1,6 +1,7 @@
 const fps = 1000 / 60;
 const speed = fps * 4;
 const stackDelay = fps * 2;
+let hideUI = 0;
 
 const logoElement = document.getElementById("logo");
 const logoPicker = document.getElementById("logoPicker");
@@ -12,6 +13,7 @@ const resetBtn = document.getElementById("resetSymbol");
 const downloadElement = document.getElementById("download");
 const logoSymbol = document.getElementById("logo--symbol");
 const curSeedElement = document.getElementById("currentSeed");
+const cacheSettings = {};
 
 const logos = [
   {
@@ -450,12 +452,13 @@ const updateNoContent = () => {
     slider.style.setProperty("--percent", ` ${(100 / 5) * slider.value}%`);
   });
   document.title = shapeIndexes.join("");
-  updateUrlWithSeed(shapeIndexes.join(""));
+  // cacheSettings.seed = shapeIndexes.join("");
   curSeedElement.value = shapeIndexes.join("");
   document.getElementById("rawSeed").innerText = shapeIndexes.join("");
   shapeIndexes.forEach((v, i) => {
     document.getElementById(`sNo${i}`).innerText = v;
   });
+  updateUrl();
 };
 
 const generateNoElements = () => {
@@ -492,8 +495,10 @@ const generateNoElements = () => {
 };
 
 const changeMarking = () => {
-  regMark.curMark = marking.value;
+  const val = marking.value;
+  regMark.curMark = val;
   regMark.id.setAttribute("d", regMark.d[regMark.curMark]);
+  updateUrl();
 };
 
 const changeColors = () => {
@@ -515,6 +520,8 @@ const changeColors = () => {
     val === "9" ? "block" : "none";
   document.getElementById("video3").style.display =
     val === "10" ? "block" : "none";
+
+  updateUrl();
 };
 
 const changeLogo = (hasQuery) => {
@@ -530,10 +537,12 @@ const changeLogo = (hasQuery) => {
   );
   generateSymbol();
   toggleGrid();
+  updateUrl();
 };
 const toggleGrid = () => {
   const gridGroup = document.querySelector("#logo--grid");
-  if (gridToggler.value === "0") {
+  const val = gridToggler.value;
+  if (val === "0") {
     gridGroup.innerHTML = "";
     logoElement.parentElement.classList.remove("showGrid");
   } else {
@@ -541,6 +550,7 @@ const toggleGrid = () => {
     logoElement.parentElement.classList.add("showGrid");
   }
   changeColors();
+  updateUrl();
 };
 
 const getValidNumericQueryParam = (paramName) => {
@@ -548,8 +558,12 @@ const getValidNumericQueryParam = (paramName) => {
   return paramValue && /^\d+$/.test(paramValue) ? paramValue : null;
 };
 
-const updateUrlWithSeed = (seed) => {
-  const newUrl = `${window.location.origin}${window.location.pathname}?seed=${seed}`;
+const updateUrl = () => {
+  const newUrl = `${window.location.origin}${window.location.pathname}?seed=${
+    curSeedElement.value
+  }&logo=${logoPicker.value}&grid=${gridToggler.value}&mark=${
+    marking.value
+  }&color=${colorTheme.value}${hideUI ? "&hideUI=" + hideUI : ""}`;
   history.pushState(null, "", newUrl);
 };
 
@@ -558,7 +572,6 @@ const handleSeedQueryParam = () => {
   if (!querySeed) return true;
   querySeed = querySeed.padStart(8, "0").slice(0, 8);
   seed = querySeed;
-  console.log(seed);
   return false;
 };
 
@@ -577,8 +590,19 @@ const changeRangeSeed = (e) => {
 };
 
 const init = () => {
+  hideUI = getValidNumericQueryParam("hideUI");
+  document.body.dataset.ui = hideUI;
   generateNoElements();
-  changeLogo(handleSeedQueryParam());
+  handleSeedQueryParam();
+  curSeedElement.value = seed;
+  logoPicker.value = getValidNumericQueryParam("logo") || logoPicker.value;
+  gridToggler.value = getValidNumericQueryParam("grid") || gridToggler.value;
+  marking.value = getValidNumericQueryParam("mark") || marking.value;
+  colorTheme.value = getValidNumericQueryParam("color") || colorTheme.value;
+  toggleGrid();
+  changeMarking();
+  changeColors();
+  changeLogo();
   curSeedElement.addEventListener(
     "input",
     () =>
@@ -633,9 +657,8 @@ const init = () => {
       colorTheme.dispatchEvent(new Event("change"));
     } else {
       if (e.key.toLowerCase() === "g") {
-        gridToggler.click();
-        /*gridToggler.value = gridToggler.value === "0" ? "1" : "0";
-        gridToggler.dispatchEvent(new Event("change"));*/
+        gridToggler.value = gridToggler.value === "0" ? "1" : "0";
+        gridToggler.dispatchEvent(new Event("change"));
       }
       if (e.key.toLowerCase() === "r")
         randomizeBtn.dispatchEvent(new Event("click"));
