@@ -1,7 +1,7 @@
 const fps = 1000 / 60;
 const speed = fps * 4;
 const stackDelay = fps * 2;
-let hideUI = 0;
+let hideUI = "0";
 
 const logoElement = document.getElementById("logo");
 const logoPicker = document.getElementById("logoPicker");
